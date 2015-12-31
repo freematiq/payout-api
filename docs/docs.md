@@ -26,13 +26,13 @@ https://lk.payin-payout.net/api_out/
  
 XML пакет подписывается цифровой подписью (ЭЦП), при этом в заголовок (header)  HTTP помещается следующая информация:
  
-"Amega-Sign" – текст ЭЦП, завернутый в BASE64;
+* "Amega-Sign" – текст ЭЦП, завернутый в BASE64;
  
-"Amega-Hash-Alg"  – алгоритм вычисления ЭЦП (MD5, SHA1, SHA256);
+* "Amega-Hash-Alg"  – алгоритм вычисления ЭЦП (MD5, SHA1, SHA256);
  
-"Amega-UserId" – идентификатор пользователя.
+* "Amega-UserId" – идентификатор пользователя.
 
-"Amega-ProtocolVersion" - версия протокола (по умолчанию 1)
+* "Amega-ProtocolVersion" - версия протокола (по умолчанию 1)
 
 ##4 Описание API
 
