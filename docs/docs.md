@@ -404,33 +404,33 @@ OpenSSL — криптографический пакет с открытым и
 ##Генерация приватного ключа
 
 1. Для начала необходимо создать файл со случайными данными, следующей командой:
-`
+```
 openssl rand -out random 1048576
-`
+```
 2. Генерация приватного ключа в формате PEM (далее он будет переведен в DER):
-`
+```
 openssl genrsa -out secret.key.pem -rand random 1024
-`
+```
 3. С помощью созданного приватного ключа генерируем публичный в формате DER:
-`
+```
 openssl rsa -in secret.key.pem -pubout -outform DER -out public.key
-`
+```
 4. Переводим приватный ключ из формата PEM в формат DER:
-`
+```
 openssl rsa -inform pem -in secret.key.pem -outform der -out secret.key
-`
+```
 В итоге получим 4 файла:
-`
+```
 random
 public.key
 secret.key
 secret.key.pem
-`
+```
 Для дальнейшей работы понадобятся  public.key и secret.key, а random и secret.key.pem можно удалить.
 
 Все шаги можно свести воедино в bat файле (скопируйте следующие строки, создайте файл, например gen.bat, и вставте в 
 файл) (в первой строке, возможно, понадобится исправить путь):
-`
+```
 set PATH=C:\OpenSSL\bin
 openssl rand -out random 1048576
 openssl genrsa -out secret.key.pem -rand random 1024
@@ -438,20 +438,20 @@ openssl rsa -in secret.key.pem -pubout -outform DER -out public.key
 openssl rsa -inform pem -in secret.key.pem -outform der -out secret.key
 del random
 del secret.key.pem
-`
+```
 
 ##Примеры использования RSA
  
 Формирование подписи командами  OpenSSL
 
 Windows:
-`
+```
 type file_to_sign.txt | openssl dgst -md5 -binary -keyform der -sign secret.key | openssl base64 -A
-`
+```
 Linux:
-`
+```
 cat -A file_to_sign.txt | openssl dgst -md5 -binary -keyform der -sign secret.key | openssl base64 -A
-`
+```
 
 ##Формирование  подписи на PHP
 ```
