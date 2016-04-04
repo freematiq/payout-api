@@ -84,6 +84,30 @@ XML пакет подписывается цифровой подписью (Э�
 
   * **balance**  — баланс агента в рублях (разделитель точка 
 
+### 4.1.1.3 Запрос баланса для всех валют
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<request>
+    <action id="Agents.getBalance">
+        <currency>ALL</currency>
+    </action>
+</request>
+```
+
+### 4.1.1.4 Ответ с информацией о балансе
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<response id="Agents.getBalance" result="0">
+    <action>
+        <balance currency="643">100.00</balance>
+        <balance currency="840">100.00</balance>
+        <balance currency="978">100.00</balance>
+    </action>
+</response>
+```
+
 ##4.2 Модуль «Платежи»
 
 
