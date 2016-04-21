@@ -8,6 +8,11 @@
  * Time: 12:14
  */
 
+namespace Freematiq;
+
+use \Exception;
+use \SimpleXMLElement;
+
 class PayOut {
 
 	const CURRENCY_RUR = 643;
@@ -211,8 +216,7 @@ $requestMessage = '<?xml version="1.0" encoding="UTF-8"?>
         }
 
 		$requestMessage =
-'
-<?xml version="1.0" encoding="UTF-8"?>
+'<?xml version="1.0" encoding="UTF-8"?>
 <request>
 	<action id="Payments.createPayment" >
 		<payment id="'.$payment['payment_id'].'" >
@@ -239,7 +243,7 @@ $requestMessage = '<?xml version="1.0" encoding="UTF-8"?>
 
 		$headers = [
 			'Content-Type: text/xml',
-			'Amega-Sign: '. $this->getSign($xml, $this->alg),
+			'Amega-Sign: '. $this->getSign($xml),
 			'Amega-Hash-Alg: ' . $this->alg,
 			'Amega-UserId: ' . $this->point,
 			'Amega-ProtocolVersion: 1',
