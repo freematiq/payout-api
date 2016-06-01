@@ -5,7 +5,7 @@
 2 Cгенерировать ключи.
 
 2.1 Запустить для *nix
-   sh create_keys.sh
+   ./create_keys.sh
 
 2.2 Запустить для WINDOWS
    create_keys.bat
@@ -22,6 +22,8 @@
 <b>Нам требуется без BOM</b>.
 
 [Документация](docs/README.md)
+
+[Пример кода](docs/RequestExample.md)
 
 [Информация о использовании сервисов](docs/services.md)
 

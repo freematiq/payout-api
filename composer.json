@@ -1,0 +1,14 @@
+{
+  "name": "freematiq/payout-api",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Gregory Manuylov"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Freematiq\\": ""
+    }
+  }
+}
