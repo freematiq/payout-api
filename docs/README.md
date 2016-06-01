@@ -590,7 +590,7 @@ type file_to_sign.txt | openssl dgst -md5 -binary -keyform der -sign secret.key 
 ```
 Linux:
 ```
-cat -A file_to_sign.txt | openssl dgst -md5 -binary -keyform der -sign secret.key | openssl base64 -A
+cat file_to_sign.txt | openssl dgst -md5 -binary -keyform der -sign secret.key | openssl base64 -A
 ```
 
 ##Формирование  подписи на PHP
