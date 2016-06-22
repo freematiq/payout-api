@@ -206,6 +206,24 @@ XML пакет подписывается цифровой подписью (Э�
 * **result**  — результат проверки абонента, если равен 0, то проверка прошла успешно
 
 * **id**  — идентификатор транзакции в системе агента
+ 
+###4.2.1.4 Ответ для платежа с невернозаполненным полем
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<response result="0">
+    <action id="Payments.verifyPayment" result="0">
+        <payment result="2" status="2" field="Account" message="validators.incorrect_email 124235"/>
+    </action>
+</response>
+```
+
+* **result** — статус проверки на стороне провайдера 0 — успешно, 1 — проверяется, 2 — ошибка.
+
+* **state** — статус ответа 0 — финален, 1 — не финален.
+
+* **field** — Название поле.
+
+* **message** — текст ошибки.
 
 ###4.2.1 Проведение платежа
 
@@ -306,40 +324,47 @@ XML пакет подписывается цифровой подписью (Э�
 <?xml version="1.0" encoding="UTF-8"?>
 <response result="0">
 	<action id="Payments.getProviders" result="0">
-		<provider fullName="Мегафон" groupId="25" id="1008" maxAmount="15000.00" minAmount="10.00" shortName="Мегафон"  icon="/images/services/service_icon_15_.png" icon_hires="/images/services/service_icon_hd_15_big.jpg">
-			<fields>
-				<field name="phone" title="Мобильный телефон" type="text"/>
-			</fields>
-			<commission>
-				<range from="10" type="0" value="-0.9"/>
-			</commission>
-			<tag_list />
-		</provider>
-		<provider fullName="VISA/MASTERCARD/MAESTRO Россия" groupId="1" id="5005" maxAmount="15000.00" minAmount="1.00"
-                  shortName="VISA/MASTERCARD/MAESTRO Россия" icon="/images/services/service_icon_23_.png" icon_hires="/images/services/service_icon_hd_23_big.jpg">
-            		<fields>
-                		<field name="account" title="Номер" type="text"/>
-                		<field name="lname" title="Фамилия" type="text"/>
-               		<field name="fname" title="Имя" type="text"/>
-              		 	<field name="mname" title="Отчество" type="text"/>
-              		  	<field name="phone" title="Мобильный телефон" type="text"/>
-              		  	<field name="seconddocnumber" title="Номер второго документа" type="text"/>
-               		<field name="passport" title="Серия и номер паспорта плательщика" type="text"/>
-             		   	<field name="seconddoctype" title="Второй документ" type="select">
-                    			<item key="INN">ИНН</item>
-                    			<item key="POMS">ПОМС</item>
-                    			<item key="SNILS">СНИЛС</item>
-                		</field>
-            		</fields>
-            		<commission>
-                		<range from="1" type="1" value="50"/>
-                		<range from="1" type="0" value="1"/>
-            		</commission>
-		<tag_list>
-			<tag title="Visa"></tag>
-                                          <tag title="Mastercard"></tag>
-		</tag_list>
-        	</provider>
+		<provider fullName="Мегафон" groupId="25" id="1008" shortName="Мегафон"
+                  icon="/images/services/service_icon_34_normal.jpg"
+                  icon_hires="/images/services/service_icon_hd_34_big.jpg">
+            <fields>
+                <field name="phone" title="Номер телефона" type="tel"
+                       field_validators="{&quot;validator&quot;: {&quot;reg&quot; : &quot;^[\\d]{10}$&quot;, &quot;error_msg&quot;:&quot;validators.is_not_valid_phone&quot;, &quot;error_code&quot;: &quot;2&quot;}}"/>
+            </fields>
+            <commissions>
+                <commission currency="643" minAmount="1" maxAmount="15000">
+                    <range from="1" type="0" value="3.85"/>
+                </commission>
+            </commissions>
+            <tag_list/>
+        </provider>
+		<provider fullName="VISA/MASTERCARD мир мультивалютная" groupId="1" id="7005"
+                  shortName="VISA/MASTERCARD мир мультивалютная">
+            <fields>
+                <field name="card_number" title="Номер карты" type="text"
+                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;^\\d{16,24}$&quot;,&quot;error_msg&quot;:&quot;validators.invalid_card_number&quot;,&quot;error_code&quot;:3}}"/>
+                <field name="expiry_month" title="Срок действия месяц" type="text"
+                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;(0[1-9]|1[012])&quot;,&quot;error_msg&quot;:&quot;validators.invalid_month_number&quot;,&quot;error_code&quot;:4}}"/>
+                <field name="expiry_year" title="Срок действия год" type="text"
+                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;^\\d{2}$&quot;,&quot;error_msg&quot;:&quot;validators.invalid_year_number&quot;,&quot;error_code&quot;:5}}"/>
+                <field name="card_Holder" title="Держатель карты" type="text"
+                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;^.{3,255}$&quot;,&quot;error_msg&quot;:&quot;validators.invalid_advcash_card_holder&quot;,&quot;error_code&quot;:5}}"/>
+                <field name="card_Holder_Country" title="Страна держателя карты" type="select" field_validators="">
+                    <item key="ru">Россия</item>
+                    <item key="by">Белоруссия</item>
+                    <item key="ua">Украина</item>
+                </field>
+                <field name="card_Holder_Address" title="Адрес держателя карты" type="text"
+                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;^.{5,255}$&quot;,&quot;error_msg&quot;:&quot;validators.invalid_advcash_card_holder_address&quot;,&quot;error_code&quot;:5}}"/>
+            </fields>
+            <commissions>
+                <commission currency="978" minAmount="5" maxAmount="5000">
+                    <range from="5" type="1" value="6.99"/>
+                    <range from="5" type="0" value="7.5"/>
+                </commission>
+            </commissions>
+            <tag_list/>
+        </provider>
         </action>
 </response>
 ```
@@ -351,6 +376,8 @@ XML пакет подписывается цифровой подписью (Э�
 **type** =  text — тип поле текст
 
 **type** =  select — тип поля выпадающий список 
+
+*field_validators — валидаторы для поля*
 
 *range — описание типов*
 
