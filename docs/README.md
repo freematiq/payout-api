@@ -328,8 +328,9 @@ XML пакет подписывается цифровой подписью (Э�
                   icon="/images/services/service_icon_34_normal.jpg"
                   icon_hires="/images/services/service_icon_hd_34_big.jpg">
             <fields>
-                <field name="phone" title="Номер телефона" type="tel"
-                       field_validators="{&quot;validator&quot;: {&quot;reg&quot; : &quot;^[\\d]{10}$&quot;, &quot;error_msg&quot;:&quot;validators.is_not_valid_phone&quot;, &quot;error_code&quot;: &quot;2&quot;}}"/>
+                <field name="phone" title="Номер телефона" type="tel">
+                    <validator regexp="^[\d]{10}$"/>
+                </field>
             </fields>
             <commissions>
                 <commission currency="643" minAmount="1" maxAmount="15000">
@@ -341,21 +342,26 @@ XML пакет подписывается цифровой подписью (Э�
 		<provider fullName="VISA/MASTERCARD мир мультивалютная" groupId="1" id="7005"
                   shortName="VISA/MASTERCARD мир мультивалютная">
             <fields>
-                <field name="card_number" title="Номер карты" type="text"
-                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;^\\d{16,24}$&quot;,&quot;error_msg&quot;:&quot;validators.invalid_card_number&quot;,&quot;error_code&quot;:3}}"/>
-                <field name="expiry_month" title="Срок действия месяц" type="text"
-                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;(0[1-9]|1[012])&quot;,&quot;error_msg&quot;:&quot;validators.invalid_month_number&quot;,&quot;error_code&quot;:4}}"/>
-                <field name="expiry_year" title="Срок действия год" type="text"
-                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;^\\d{2}$&quot;,&quot;error_msg&quot;:&quot;validators.invalid_year_number&quot;,&quot;error_code&quot;:5}}"/>
-                <field name="card_Holder" title="Держатель карты" type="text"
-                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;^.{3,255}$&quot;,&quot;error_msg&quot;:&quot;validators.invalid_advcash_card_holder&quot;,&quot;error_code&quot;:5}}"/>
-                <field name="card_Holder_Country" title="Страна держателя карты" type="select" field_validators="">
+                <field name="card_number" title="Номер карты" type="text">
+                    <validator regexp="^\d{16,24}$"/>
+                </field>
+                <field name="expiry_month" title="Срок действия месяц" type="text">
+                    <validator regexp="(0[1-9]|1[012])"/>
+                </field>
+                <field name="expiry_year" title="Срок действия год" type="text">
+                    <validator regexp="^\d{2}$"/>
+                </field>
+                <field name="card_Holder" title="Держатель карты" type="text">
+                    <validator regexp="^.{3,255}$"/>
+                </field>
+                <field name="card_Holder_Country" title="Страна держателя карты" type="select">
                     <item key="ru">Россия</item>
                     <item key="by">Белоруссия</item>
                     <item key="ua">Украина</item>
                 </field>
-                <field name="card_Holder_Address" title="Адрес держателя карты" type="text"
-                       field_validators="{&quot;validator&quot;:{&quot;reg&quot;:&quot;^.{5,255}$&quot;,&quot;error_msg&quot;:&quot;validators.invalid_advcash_card_holder_address&quot;,&quot;error_code&quot;:5}}"/>
+                <field name="card_Holder_Address" title="Адрес держателя карты" type="text">
+                    <validator regexp="^.{5,255}$"/>
+                </field>
             </fields>
             <commissions>
                 <commission currency="978" minAmount="5" maxAmount="5000">
@@ -377,7 +383,7 @@ XML пакет подписывается цифровой подписью (Э�
 
 **type** =  select — тип поля выпадающий список 
 
-*field_validators — валидаторы для поля*
+**validator** — валидатор для поля
 
 *range — описание типов*
 
