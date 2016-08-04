@@ -219,13 +219,15 @@ XML пакет подписывается цифровой подписью (Э�
 <request>
 	<action id="Payments.createPayment" >
 		<payment id="10" >
-		<serviceId>1008</serviceId>
-			<fields><phone>9237500001</phone></fields>
-		<amount>20</amount>
-		<dateTime>2014-09-24 14:06:06</dateTime>
-		<comment>pay</comment>
-	</payment>
-</action>
+			<serviceId>1008</serviceId>
+			<fields>
+				<phone>9237500001</phone>
+			</fields>
+			<amount>20</amount>
+			<dateTime>2014-09-24 14:06:06</dateTime>
+			<comment>pay</comment>
+		</payment>
+	</action>
 </request>
 ```
 
