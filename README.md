@@ -23,7 +23,7 @@
 
 [Документация](docs/README.md)
 
-[Пример кода](docs/RequestExample.md)
+[Примеры кода](docs/RequestExample.md)
 
 [Информация о использовании сервисов](docs/services.md)
 
