@@ -4,6 +4,8 @@
 
 [Запрос на получение баланса учётной записи](GetBalanceExample.md)
 
+[Запрос на проверку данных платежа](VerifyPaymentExample.md)
+
 ```
 <?php
 
@@ -11,17 +13,6 @@ use Freematiq\PayOut;
 
 $gate = new PayOut();
 $gate->setPoint(''); //	не забыть прописать идентификатор пользователя, обязательно в кавычках
-
-$payment = array(
-    'payment_id'    => 1, // id платежа в Вашей системе
-    'service_id'    => 1008, // сервис проведения $gate->getProviders()
-    'fields'        => array( // поля, что указаны в $gate->getProviders() для сервиса
-        'phone' => 'номeр телефона',
-    ),
-    'amount'        => 15, // сумма на счет клиента
-);
-
-$payment = $gate->verifyPayment($payment);
 
 // создаем платеж
 $payment = array(
