@@ -2,6 +2,8 @@
 
 [Запрос на получение списка провайдеров](GetProvidersExample.md)
 
+[Запрос на получение баланса учётной записи](GetBalanceExample.md)
+
 ```
 <?php
 
@@ -9,12 +11,6 @@ use Freematiq\PayOut;
 
 $gate = new PayOut();
 $gate->setPoint(''); //	не забыть прописать идентификатор пользователя, обязательно в кавычках
-
-// баланс
-$balance = $gate->getBalance();
-
-// баланс для всех валют
-$balance = $gate->getBalance(PayOut::CURRENCY_ALL);
 
 $payment = array(
     'payment_id'    => 1, // id платежа в Вашей системе
