@@ -198,7 +198,7 @@ $requestMessage = '<?xml version="1.0" encoding="UTF-8"?>
 	/**
 	 * Проведение платежа
 	 *
-	 * $payment['payment_id', 'service_id', 'account', 'amount', 'data', 'comment']
+	 * $payment['payment_id', 'service_id', 'account', 'amount', 'data', 'comment', 'spend']
 	 * @param $payment
 	 * @return mixed
 	 */
@@ -221,9 +221,10 @@ $requestMessage = '<?xml version="1.0" encoding="UTF-8"?>
 	<action id="Payments.createPayment" >
 		<payment id="'.$payment['payment_id'].'" >
 		<serviceId>'.$payment['service_id'].'</serviceId>
-			'.$fields.'
-		<amount>'.$payment['amount'].'</amount>
-		<dateTime>'.$payment['data'].'</dateTime>
+			'.$fields.
+		'<amount>'.$payment['amount'].'</amount>'.
+//		'<spend>'.$payment['spend'].'</spend>'.
+		'<dateTime>'.$payment['data'].'</dateTime>
 		<comment>'.$payment['comment'].'</comment>
 		'.$currency.'
 	</payment>
