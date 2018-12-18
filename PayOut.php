@@ -270,19 +270,25 @@ $requestMessage = '<?xml version="1.0" encoding="UTF-8"?>
 	 * в качестве строки, образующих контролируемые данные, берется передаваемое сообщение
 	 *
 	 * @param $requestMessage
-	 * @throws Exception
 	 * @return string
 	 */
 	private function getSign($requestMessage){
-		if(file_put_contents('tmp.xml', $requestMessage)){
-			$cmd = ( stristr(php_uname ('s'), 'windows') )?'type':'cat';
-			$handle = popen("$cmd tmp.xml | openssl dgst -{$this->alg} -binary -keyform DER -sign {$this->getKeyPath()} | openssl base64 -A", "r");
-			$read = fread($handle, 2096);
-			pclose($handle);
-			unlink('tmp.xml');
-			return $read;
-		}else{
-			throw new Exception('Нет прав на запись для создания временного файла');
-		}
+		$pkeyid = openssl_pkey_get_private(self::der2pem(file_get_contents($this->getKeyPath()), 'RSA PRIVATE KEY'));
+        	openssl_sign($requestMessage, $signature, $pkeyid, $this->alg);
+        	openssl_free_key($pkeyid);
+        	return base64_encode($signature);
 	}
+	
+	/**
+	 * Convert DER keyfile format to PEM
+	 *
+	 * @param $der_data
+	 * @param $type
+	 * @return string
+	 */
+	private function der2pem($der_data, $type='CERTIFICATE') {
+        	$pem = chunk_split(base64_encode($der_data), 64, "\n");
+        	$pem = "-----BEGIN ".$type."-----\n".$pem."-----END ".$type."-----\n";
+        	return $pem;
+    	}
 }
